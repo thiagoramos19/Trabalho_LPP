@@ -16,26 +16,26 @@ const calcularTotalPorFluxo = (lista, tipoFluxo) => {
 
 const gerarBalancoGeral = (lista) => {
 const totalGanhos = calcularTotalPorFluxo(lista, 'entrada');
-  	const totalDespesas = calcularTotalPorFluxo(lista, 'despesa');
+  	const totalSaidas = calcularTotalPorFluxo(lista, 'saida');
   
   	return {
     		totalGanhos: totalGanhos,
-    		totalDespesas: totalDespesas,
-    		lucroTotal: totalGanhos - totalDespesas
+    		totalSaidas: totalSaidas,
+    		lucroTotal: totalGanhos - totalSaidas
   	};
 };
 
 const gerarRelatorioPorCategoria = (lista) => {
   return lista.reduce((acumulador, item) => {
     const cat = item.categoria;
-    const categoriaAtual = acumulador[cat] || { ganhos: 0, despesas: 0, lucro: 0   };
+    const categoriaAtual = acumulador[cat] || { ganhos: 0, saidas: 0, lucro: 0   };
     const novosGanhos = item.fluxo === 'entrada' ? categoriaAtual.ganhos + item.valor : categoriaAtual.ganhos;
-    const novasDespesas = item.fluxo === 'despesa' ? categoriaAtual.despesas + item.valor : categoriaAtual.despesas;
+    const novasSaidas = item.fluxo === 'saida' ? categoriaAtual.saidas + item.valor : categoriaAtual.saidas;
     return {
       ...acumulador, [cat]: {
         ganhos: novosGanhos,
-        despesas: novasDespesas,
-        lucro: novosGanhos - novasDespesas
+        saidas: novasSaidas,
+        lucro: novosGanhos - novasSaidas
       }
     };
   }, {}); 
